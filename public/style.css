@@ -93,6 +93,11 @@ h1 {
   margin-left: 55px;
 }
 
+.search {
+  float: right;
+  margin-top: 10px;
+}
+
 form {
   margin: 10px;
 }

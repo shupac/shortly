@@ -6,6 +6,7 @@ window.Shortly = Backbone.View.extend({
       <ul> \
         <li><a href="#" class="index">All Links</a></li> \
         <li><a href="#" class="create">Shorten</a></li> \
+        <li><input class = "search" type="text" placeholder="Search"></input></li> \
       </ul> \
       </div> \
       <div id="container"></div>'
@@ -13,7 +14,24 @@ window.Shortly = Backbone.View.extend({
 
   events: {
     "click li a.index":  "renderIndexView",
-    "click li a.create": "renderCreateView"
+    "click li a.create": "renderCreateView",
+    "keydown li .search": "filterView"
+  },
+
+  filterView: function(event){
+    if(event.which === 13) {
+      console.log('enter');
+      var filter = $('.search').val().toLowerCase();
+      $('.link').each(function() {
+        $(this).show();
+        var title = $(this).find('.title').text().toLowerCase();
+        var link = $(this).find('.original').text().toLowerCase();
+        console.log(title, link);
+        if(title.indexOf(filter) === -1 && link.indexOf(filter) === -1) {
+          $(this).hide();
+        }
+      });
+    }
   },
 
   initialize: function(){
