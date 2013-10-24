@@ -36,7 +36,7 @@ ActiveRecord::Base.include_root_in_json = false
 # http://guides.rubyonrails.org/association_basics.html
 
 class Link < ActiveRecord::Base
-    attr_accessible :url, :code, :visits, :title
+    attr_accessible :url, :code, :visits, :title, :updated_at
 
     has_many :clicks
 
@@ -64,8 +64,11 @@ end
 get '/links?:display' do
     puts 'get request received'
     puts params.inspect
-
-    links = Link.order("visits DESC")
+    if(params['sort_by']==='visits')
+      links = Link.order("visits DESC")
+    else
+      links = Link.order('updated_at DESC')
+    end
     links.map { |link|
         link.as_json.merge(base_url: request.base_url)
     }.to_json

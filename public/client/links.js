@@ -1,13 +1,9 @@
 Shortly.Links = Backbone.Collection.extend({
 
   model: Shortly.Link,
-  url: '/links'
-
-  // function() {
-  //   if(filter){
-  //     return '/links' + filter;
-  //   }
-  //   return '/links' + order + filter; // NEED LOGIC to add '&'
-  //   // ?order_by=visits&filter_by=facebook'
-  // }
+  initialize: function(params) {
+    this.url = '/links';
+    if(params) this.url = this.url + '?sort_by=' + params.sort;
+    console.log(this.url);
+  }
 });

@@ -27,7 +27,6 @@ Shortly.LinksView = Backbone.View.extend({
       this.collection.forEach(function(link){
         var title = link.get('title');
         var url = link.get('url');
-        console.log('title', title, 'url', url, filter);
         if(title.indexOf(filter) !== -1 || url.indexOf(filter) !== -1) {
           that.addOne(link);
         }
