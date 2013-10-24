@@ -54,12 +54,17 @@ end
 ###########################################################
 # Routes
 ###########################################################
+# /links?filter_by=amazon
+# /links?order_by=visits or lastVisited
 
 get '/' do
     erb :index
 end
 
-get '/links' do
+get '/links?:display' do
+    puts 'get request received'
+    puts params.inspect
+
     links = Link.order("visits DESC")
     links.map { |link|
         link.as_json.merge(base_url: request.base_url)
