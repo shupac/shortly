@@ -10,11 +10,28 @@ Shortly.LinkView = Backbone.View.extend({
         <div class="title"><%= title %></div> \
         <div class="original"><%= url %></div> \
         <a href="<%= base_url %>/<%= code %>"><%= base_url %>/<%= code %></a> \
+        <a href="#" class="stats">show stats</a> \
       </div>'
   ),
 
-  render: function() {
-    this.$el.html( this.template(this.model.attributes) );
+  events: {
+    'click a.stats': 'showStats'
+  },
+
+  showStats: function() {
+    var that = this;
+    $.ajax({
+      url: '/stats?id='+this.model.get('id'),
+      type: 'GET',
+      success: function(data) {
+        that.render(data);
+      }
+    });
+  },
+
+  render: function(data) {
+    this.$el.html( this.template(this.model.attributes) ).append(data);
+    console.log(this.model.attributes);
     return this;
   }
 
