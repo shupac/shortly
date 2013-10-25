@@ -1,13 +1,7 @@
 Shortly.StatView = Backbone.View.extend({
   tagName: 'ul',
   className: 'stat',
-  template: _.template('<a href="#" class="stats">show stats</a>'),
-  events: {
-    'click a.stats': 'showStats'
-  },
-  initialize: function() {
-    this.render();
-  },
+
   showStats: function() {
     var that = this;
     $.ajax({
@@ -23,7 +17,8 @@ Shortly.StatView = Backbone.View.extend({
       }
     });
   },
-  render: function() {
-    this.$el.html(this.template);
+
+  hideStats: function() {
+    this.$el.empty();
   }
 });
